@@ -506,6 +506,22 @@ service UserStore {
             2: Errors.EDAMSystemException systemException),
 
   /**
+   * Used to be the main username/password login endpoint for the desktop app.
+   * Still useful, but only for Yinxiang.
+   */
+  AuthenticationResult authenticateLongSessionV2(1: string username,
+                                               2: string password,
+                                               3: string ssoLoginToken,
+                                               4: string consumerKey,
+                                               5: string consumerSecret,
+                                               6: string deviceIdentifier,
+                                               7: string deviceDescription,
+                                               8: bool supportsTwoFactor,
+                                               9: bool supportsBusinessOnlyAccounts)
+    throws (1: Errors.EDAMUserException userException,
+            2: Errors.EDAMSystemException systemException),
+
+  /**
    * Complete the authentication process when a second factor is required. This
    * call is made after a successful call to authenticate or authenticateLongSession
    * when the authenticating user has enabled two-factor authentication.
