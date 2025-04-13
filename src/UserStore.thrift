@@ -344,6 +344,10 @@ struct BootstrapInfo {
   1: required list<BootstrapProfile> profiles
 }
 
+struct GetNAPAccessJWTRequest {
+  1: optional bool includeBusinessFields
+}
+
 /**
  * Service:  UserStore
  * <p>
@@ -843,4 +847,16 @@ service UserStore {
    */
   Types.AccountLimits getAccountLimits(1: Types.ServiceLevel serviceLevel)
     throws (1: Errors.EDAMUserException userException),
+
+  /**
+   * Endpoints for getting the JWT auth token for the new API.
+   */
+  string getNAPAccessToken(1: string authenticationToken)
+    throws (1: Errors.EDAMUserException userException,
+            2: Errors.EDAMSystemException systemException),
+
+  string getNAPAccessJWT(1: string authenticationToken,
+                         2: GetNAPAccessJWTRequest request)
+    throws (1: Errors.EDAMUserException userException,
+            2: Errors.EDAMSystemException systemException),
 }
