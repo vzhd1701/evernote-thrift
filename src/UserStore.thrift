@@ -348,6 +348,25 @@ struct GetNAPAccessJWTRequest {
   1: optional bool includeBusinessFields
 }
 
+struct OpenIdCredential {
+  1: optional string tokenPayload,
+  2: optional i32 serviceProvider,
+}
+
+struct AuthenticationParameters {
+  1: optional string usernameOrEmail,
+  2: optional string password,
+  3: optional string ssoLoginToken,
+  4: optional string consumerKey,
+  5: optional string consumerSecret,
+  6: optional string deviceIdentifier,
+  7: optional string deviceDescription,
+  8: optional bool supportsTwoFactor,
+  9: optional bool supportsBusinessOnlyAccounts,
+  10: optional OpenIdCredential openIdCredential,
+  11: optional string exchangeToken,
+}
+
 /**
  * Service:  UserStore
  * <p>
@@ -513,15 +532,7 @@ service UserStore {
    * Used to be the main username/password login endpoint for the desktop app.
    * Still useful, but only for Yinxiang.
    */
-  AuthenticationResult authenticateLongSessionV2(1: string username,
-                                               2: string password,
-                                               3: string ssoLoginToken,
-                                               4: string consumerKey,
-                                               5: string consumerSecret,
-                                               6: string deviceIdentifier,
-                                               7: string deviceDescription,
-                                               8: bool supportsTwoFactor,
-                                               9: bool supportsBusinessOnlyAccounts)
+  AuthenticationResult authenticateLongSessionV2(1: AuthenticationParameters authParams)
     throws (1: Errors.EDAMUserException userException,
             2: Errors.EDAMSystemException systemException),
 
